@@ -68,7 +68,7 @@ public class MarketServiceImpl implements IMarketService {
             sql += "AND steel_number like :steelNumber ";
             params.put("steelNumber", "%" + steelNumber + "%");
         }
-        if (StringUtils.isNotBlank(steelNumber)) {
+        if (StringUtils.isNotBlank(steelType)) {
             sql += "AND steel_type like :steelType";
             params.put("steelType", "%" + steelType + "%");
         }

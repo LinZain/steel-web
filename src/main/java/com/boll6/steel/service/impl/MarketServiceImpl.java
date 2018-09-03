@@ -87,7 +87,7 @@ public class MarketServiceImpl implements IMarketService {
             sql += "AND steel_number like :steelNumber ";
             params.put("steelNumber", "%" + steelNumber + "%");
         }
-        if (StringUtils.isNotBlank(steelNumber)) {
+        if (StringUtils.isNotBlank(steelType)) {
             sql += "AND steel_type like :steelType";
             params.put("steelType", "%" + steelType + "%");
         }
@@ -103,7 +103,7 @@ public class MarketServiceImpl implements IMarketService {
         String sql = "SELECT c.steel_number as steelNumber,c.std_number as stdNumber,c.steel_type as steelType,c.similar_material as similarMaterial,d.steel_number AS theSameMaterial FROM(SELECT a.steel_number,std_number,steel_type, b.steel_number AS similar_material,a.theSame_material FROM (SELECT steel_number,std_number,group_name AS steel_type, chm_composition,pys_performance,mec_performance, similar_material,theSame_material FROM steelweb.tb_material,steelweb.tb_group  WHERE tb_material.steel_type=tb_group.id AND std_number IN(SELECT std_number FROM steelweb.tb_standardDtl,steelweb.tb_ics WHERE tb_ics.code = tb_standardDtl.std_icsClass AND tb_ics.code like :icsCode)) AS a LEFT JOIN (SELECT id,steel_number FROM steelweb.tb_material ) AS b ON a.similar_material = b.id) AS c LEFT JOIN (SELECT id,steel_number FROM steelweb.tb_material ) AS d ON c.theSame_material=d.id";
         HashMap params = new HashMap();
 
-        params.put("icsCode", "%" + icsCode + "%");
+        params.put("icsCode", icsCode + "%");
 
         return (List<SteelNumberVO>) wechatproductDao.findVoBySql(sql, params, SteelNumberVO.class);
     }
@@ -113,7 +113,7 @@ public class MarketServiceImpl implements IMarketService {
         String sql = "SELECT count(*) FROM (SELECT steel_number,std_number,group_name AS steel_type, chm_composition,pys_performance,mec_performance, similar_material,theSame_material FROM steelweb.tb_material,steelweb.tb_group  WHERE tb_material.steel_type=tb_group.id AND std_number IN(SELECT std_number FROM steelweb.tb_standardDtl,steelweb.tb_ics WHERE tb_ics.code = tb_standardDtl.std_icsClass AND tb_ics.code like :icsCode)) AS a LEFT JOIN (SELECT id,steel_number FROM steelweb.tb_material ) AS b ON a.similar_material = b.id) AS c LEFT JOIN (SELECT id,steel_number FROM steelweb.tb_material ) AS d ON c.theSame_material=d.id";
         HashMap params = new HashMap();
 
-        params.put("icsCode", "%" + icsCode + "%");
+        params.put("icsCode", icsCode + "%");
 
         return wechatproductDao.countBySql(sql, params);
     }
@@ -123,7 +123,7 @@ public class MarketServiceImpl implements IMarketService {
         String sql = "SELECT std_icsClass as icsCode,ch_name as icsName FROM (SELECT distinct(std_icsClass),b.ch_name FROM (SELECT * from steelweb.tb_standardDtl WHERE std_type like :stdType)a LEFT JOIN (SELECT code,ch_name from steelweb.tb_ics) b ON a.std_icsClass=b.code) d WHERE d.ch_name is not null";
         HashMap params = new HashMap();
 
-        params.put("stdType", "%" + stdType + "%");
+        params.put("stdType",stdType);
 
         return (List<ICSVO>) wechatproductDao.findVoBySql(sql, params, ICSVO.class);
     }
@@ -133,7 +133,7 @@ public class MarketServiceImpl implements IMarketService {
         String sql = "SELECT count(*) FROM (SELECT distinct(std_icsClass),b.ch_name FROM (SELECT * from steelweb.tb_standardDtl WHERE std_type like :stdType)a LEFT JOIN (SELECT code,ch_name from steelweb.tb_ics) b ON a.std_icsClass=b.code) d WHERE d.ch_name is not null";
         HashMap params = new HashMap();
 
-        params.put("stdType", "%" + stdType + "%");
+        params.put("stdType",stdType);
 
         return wechatproductDao.countBySql(sql, params);
     }

@@ -110,7 +110,7 @@ public class MarketServiceImpl implements IMarketService {
 
     @Override
     public BigInteger countSteelNumberByICS(String icsCode) {
-        String sql = "SELECT count(*) FROM (SELECT steel_number,std_number,group_name AS steel_type, chm_composition,pys_performance,mec_performance, similar_material,theSame_material FROM steelweb.tb_material,steelweb.tb_group  WHERE tb_material.steel_type=tb_group.id AND std_number IN(SELECT std_number FROM steelweb.tb_standardDtl,steelweb.tb_ics WHERE tb_ics.code = tb_standardDtl.std_icsClass AND tb_ics.code like :icsCode)) AS a LEFT JOIN (SELECT id,steel_number FROM steelweb.tb_material ) AS b ON a.similar_material = b.id) AS c LEFT JOIN (SELECT id,steel_number FROM steelweb.tb_material ) AS d ON c.theSame_material=d.id";
+        String sql = "SELECT count(*) FROM(SELECT a.steel_number,std_number,steel_type, b.steel_number AS similar_material,a.theSame_material FROM (SELECT steel_number,std_number,group_name AS steel_type, chm_composition,pys_performance,mec_performance, similar_material,theSame_material FROM steelweb.tb_material,steelweb.tb_group  WHERE tb_material.steel_type=tb_group.id AND std_number IN(SELECT std_number FROM steelweb.tb_standardDtl,steelweb.tb_ics WHERE tb_ics.code = tb_standardDtl.std_icsClass AND tb_ics.code like :icsCode)) AS a LEFT JOIN (SELECT id,steel_number FROM steelweb.tb_material ) AS b ON a.similar_material = b.id) AS c LEFT JOIN (SELECT id,steel_number FROM steelweb.tb_material ) AS d ON c.theSame_material=d.id";
         HashMap params = new HashMap();
 
         params.put("icsCode", icsCode + "%");

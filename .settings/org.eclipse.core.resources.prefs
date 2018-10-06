@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/main/java=GBK
+encoding//src/main/java/com/boll6/steel/controller/SteelApiController.java=UTF-8
 encoding//src/main/java/com/boll6/steel/util/FilterUtil.java=UTF-8
 encoding//src/test/java=GBK

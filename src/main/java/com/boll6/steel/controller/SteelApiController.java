@@ -269,7 +269,7 @@ public class SteelApiController {
 
 
     @ResponseBody
-    @RequestMapping(value = {"/uploadPic"}, method = {RequestMethod.GET})
+    @RequestMapping(value = {"/uploadPic"})
     public String uploadPic(HttpServletRequest request, HttpServletResponse response) {
         JSONObject jsonObject = new JSONObject();
         String path = request.getRealPath("/upload") + "/";

@@ -252,14 +252,16 @@ public class SteelApiController {
 
     @ResponseBody
     @RequestMapping(value = {"/getInfomation"}, method = {RequestMethod.GET})
-    public String getInfomation(Long userId, Integer infoStatus, String infoContent, String fromApp, String orderBy) {
+    public String getInfomation(Long userId, Integer infoStatus, String infoContent, String fromApp, String orderBy, int page, int rows) {
         JSONObject jsonObject = new JSONObject();
         try {
-            List<TbInfomation> infomationList = infomationService.getInfomation(userId, infoStatus, infoContent, fromApp, orderBy);
+            List<TbInfomation> infomationList = infomationService.getInfomation(userId, infoStatus, infoContent, fromApp, orderBy, page, rows);
             if (infomationList == null || infomationList.isEmpty()) {
                 return null;
             }
+            Long count = infomationService.countInfomation(userId, infoStatus, infoContent, fromApp).longValue();
             jsonObject.put("rows", infomationList);
+            jsonObject.put("count", count);
             return jsonObject.toString();
         } catch (Exception e) {
             e.printStackTrace();

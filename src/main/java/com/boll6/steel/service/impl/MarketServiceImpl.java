@@ -62,7 +62,7 @@ public class MarketServiceImpl implements IMarketService {
     @Override
     public List<SteelNumberVO> getSteelNumber(String steelNumber, String steelType) {
         String sql = "SELECT c.steel_number as steelNumber,c.std_number as stdNumber,c.steel_type as steelType,c.similar_material as similarMaterial,d.steel_number AS theSameMaterial ,chm_composition as chmComposition,pys_performance as pysPerformance,mec_performance as mecPerformance "
-                + "FROM(SELECT a.steel_number,std_number,steel_type, b.steel_number AS similar_material,a.theSame_material,chm_composition,pys_performance,mec_performance FROM (SELECT steel_number,std_number,group_name AS steel_type, chm_composition,pys_performance,mec_performance, similar_material,theSame_material FROM tb_material,tb_group WHERE tb_material.steel_type=tb_group.id";
+                + "FROM(SELECT a.steel_number,std_number,steel_type, b.steel_number AS similar_material,a.theSame_material,chm_composition,pys_performance,mec_performance FROM (SELECT steel_number,std_number,group_name AS steel_type, chm_composition,pys_performance,mec_performance, similar_material,theSame_material FROM tb_material,tb_group WHERE tb_material.steel_type=tb_group.id ";
         HashMap params = new HashMap();
 
         if (StringUtils.isNotBlank(steelNumber)) {

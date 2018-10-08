@@ -56,7 +56,7 @@ public class InfomationServiceImpl implements IInfomationService {
             hql += " order by " + orderBy + " desc ";
         }
 
-        return infomationDao.findEntityBySql(hql, params, TbInfomation.class, page, rows);
+        return (List<TbInfomation>) infomationDao.findEntityBySql(hql, params, TbInfomation.class, page, rows);
     }
 
     @Override

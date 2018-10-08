@@ -9,6 +9,9 @@ public class SteelNumberVO {
     private String steelType;
     private String similarMaterial;
     private String theSameMaterial;
+    private String chmComposition;
+    private String pysPerformance;
+    private String mecPerformance;
 
     public String getSteelNumber() {
         return steelNumber;
@@ -48,5 +51,29 @@ public class SteelNumberVO {
 
     public void setTheSameMaterial(String theSameMaterial) {
         this.theSameMaterial = theSameMaterial;
+    }
+
+    public String getChmComposition() {
+        return chmComposition;
+    }
+
+    public void setChmComposition(String chmComposition) {
+        this.chmComposition = chmComposition;
+    }
+
+    public String getPysPerformance() {
+        return pysPerformance;
+    }
+
+    public void setPysPerformance(String pysPerformance) {
+        this.pysPerformance = pysPerformance;
+    }
+
+    public String getMecPerformance() {
+        return mecPerformance;
+    }
+
+    public void setMecPerformance(String mecPerformance) {
+        this.mecPerformance = mecPerformance;
     }
 }

@@ -73,7 +73,7 @@ public class MarketServiceImpl implements IMarketService {
             params.put("steelType", "%" + steelType + "%");
         }
 
-        sql += ") AS a LEFT JOIN (SELECT id,steel_number FROM steelweb.tb_material ) AS b  ON a.similar_material = b.id) AS c LEFT JOIN (SELECT id,steel_number FROM steelweb.tb_material ) AS d ON c.theSame_material=d.id";
+        sql += ") AS a LEFT JOIN (SELECT id,steel_number FROM steelweb.tb_material ) AS b  ON a.similar_material = b.id) AS c LEFT JOIN (SELECT * FROM steelweb.tb_material ) AS d ON c.theSame_material=d.id";
 
         return (List<SteelNumberVO>) wechatproductDao.findVoBySql(sql, params, SteelNumberVO.class);
     }
@@ -100,7 +100,7 @@ public class MarketServiceImpl implements IMarketService {
 
     @Override
     public List<SteelNumberVO> getSteelNumberByICS(String icsCode) {
-        String sql = "SELECT c.steel_number as steelNumber,c.std_number as stdNumber,c.steel_type as steelType,c.similar_material as similarMaterial,d.steel_number AS theSameMaterial ,d.chm_composition as chmComposition,d.pys_performance as pysPerformance,d.mec_performance as mecPerformance FROM (SELECT a.steel_number,std_number,steel_type, b.steel_number AS similar_material,a.theSame_material FROM (SELECT steel_number,std_number,group_name AS steel_type, chm_composition,pys_performance,mec_performance, similar_material,theSame_material FROM steelweb.tb_material,steelweb.tb_group  WHERE tb_material.steel_type=tb_group.id AND std_number IN(SELECT std_number FROM steelweb.tb_standardDtl,steelweb.tb_ics WHERE tb_ics.code = tb_standardDtl.std_icsClass AND tb_ics.code like :icsCode)) AS a LEFT JOIN (SELECT id,steel_number FROM steelweb.tb_material ) AS b ON a.similar_material = b.id) AS c LEFT JOIN (SELECT id,steel_number FROM steelweb.tb_material ) AS d ON c.theSame_material=d.id";
+        String sql = "SELECT c.steel_number as steelNumber,c.std_number as stdNumber,c.steel_type as steelType,c.similar_material as similarMaterial,d.steel_number AS theSameMaterial ,d.chm_composition as chmComposition,d.pys_performance as pysPerformance,d.mec_performance as mecPerformance FROM (SELECT a.steel_number,std_number,steel_type, b.steel_number AS similar_material,a.theSame_material FROM (SELECT steel_number,std_number,group_name AS steel_type, chm_composition,pys_performance,mec_performance, similar_material,theSame_material FROM steelweb.tb_material,steelweb.tb_group  WHERE tb_material.steel_type=tb_group.id AND std_number IN(SELECT std_number FROM steelweb.tb_standardDtl,steelweb.tb_ics WHERE tb_ics.code = tb_standardDtl.std_icsClass AND tb_ics.code like :icsCode)) AS a LEFT JOIN (SELECT id,steel_number FROM steelweb.tb_material ) AS b ON a.similar_material = b.id) AS c LEFT JOIN (SELECT * FROM steelweb.tb_material ) AS d ON c.theSame_material=d.id";
         HashMap params = new HashMap();
 
         params.put("icsCode", icsCode + "%");

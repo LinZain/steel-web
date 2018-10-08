@@ -40,10 +40,10 @@ public class FilterUtil implements Filter {
 
     protected static boolean sqlValidate(String str) {
         str = str.toLowerCase();
-        String badStr = "'|exec|execute|insert|select|delete|update|count|drop|master|truncate|"
+        String badStr = "'|exec|execute|insert|select|delete|drop|master|truncate|"
                 + "declare|sitename|net user|xp_cmdshell|like'|exec|execute|insert|create|drop|"
                 + "table|from|grant|use|group_concat|column_name|"
-                + "information_schema.columns|table_schema|union|where|select|delete|update|order|count|"
+                + "information_schema.columns|table_schema|union|where|select|delete|order|"
                 + "master|truncate|declare|";
         String[] badStrs = badStr.split("\\|");
         for (int i = 0; i < badStrs.length; i++) {
